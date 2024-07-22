@@ -8,7 +8,7 @@ from datetime import datetime
 GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/Hizhuzi/Biomass-derived-porous-carbons-Synthesis-prediction-quiz/main/your_data.xlsx"  
 
 st.markdown("## Welcome to the Biomass-Derived Porous Carbons (BDPCs) Synthesis Prediction Quiz!")  
-st.markdown("### Please review the BDPCs on the following page and provide your best guess.")  
+st.markdown("### Please review the BDPCs on the following page and provide your educated guess.")  
 
 @st.cache_data  
 def load_data():  
