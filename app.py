@@ -36,7 +36,7 @@ display_question(st.session_state.current_index)
 
 # Define questionnaire content  
 st.markdown("### Please fill in the following information:")  
-st.markdown("<h4 style='font-size: 20px;'>Mass Ratio of Activator to Raw Material</h4>", unsafe_allow_html=True)  
+st.markdown("<h4 style='font-size: 20px;'>Mass Ratio of Activator to Biomass-Feedstock</h4>", unsafe_allow_html=True)  
 mass_ratio = st.slider('', 0.25, 8.00, 0.25)  
 st.markdown("<h4 style='font-size: 20px;'>Temperature (°C)</h4>", unsafe_allow_html=True)  
 temperature = st.slider('', 300, 1000, 1)  
