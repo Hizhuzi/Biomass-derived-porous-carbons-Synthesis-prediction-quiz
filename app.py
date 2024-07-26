@@ -7,8 +7,8 @@ from datetime import datetime
 # GitHub raw content URL for your Excel file  
 GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/Hizhuzi/Biomass-derived-porous-carbons-Synthesis-prediction-quiz/main/your_data.xlsx"  
 
-st.markdown("## Welcome to the Biomass-Derived Porous Carbons (BDPCs) Synthesis Prediction Quiz!")  
-st.markdown("### Please review the BDPCs on the following page and provide your best guess.")  
+st.markdown("## 欢迎参加生物质衍生多孔碳 (BDPCs) 合成预测问答！")  
+st.markdown("### 请查看以下页面的BDPCs，并提供您的最佳猜测。")  
 
 @st.cache_data  
 def load_data():  
@@ -27,36 +27,36 @@ if 'data' not in st.session_state:
     st.session_state.data = []  
 
 # Add name, position and institution input fields  
-st.markdown("### Personal Information")  
-name = st.text_input("Please enter your name:")  
-title = st.text_input("Please enter your position:")  
-institution = st.text_input("Please enter your institution:")  
+st.markdown("### 个人信息")  
+name = st.text_input("请输入您的姓名：")  
+title = st.text_input("请输入您的职位：")  
+institution = st.text_input("请输入您的机构：")  
 
 # Ensure name, position and institution are filled before proceeding  
 if not name or not title or not institution:  
-    st.warning("Please complete your personal information before proceeding.")  
+    st.warning("请先填写您的个人信息。")  
 else:  
     def display_question(index):  
-        st.markdown(f"### Porous Carbon Structure Information (Question {index + 1}/50)")  
-        st.markdown(f"<h4 style='font-size: 20px;'>Mesopore Specific Surface Area: {selected_data.iloc[index, 0]} m²/g</h4>", unsafe_allow_html=True)  
-        st.markdown(f"<h4 style='font-size: 20px;'>Micropore Specific Surface Area: {selected_data.iloc[index, 1]} cm²/g</h4>", unsafe_allow_html=True)  
+        st.markdown(f"### 多孔碳结构信息 (问题 {index + 1}/50)")  
+        st.markdown(f"<h4 style='font-size: 20px;'>介孔比表面积：{selected_data.iloc[index, 0]} m²/g</h4>", unsafe_allow_html=True)  
+        st.markdown(f"<h4 style='font-size: 20px;'>微孔比表面积：{selected_data.iloc[index, 1]} cm²/g</h4>", unsafe_allow_html=True)  
 
     # Display current question  
     display_question(st.session_state.current_index)  
 
     # Define questionnaire content  
-    st.markdown("### Please fill in the following information:")  
-    st.markdown("<h4 style='font-size: 20px;'>Mass Ratio of Activator to Raw Material</h4>", unsafe_allow_html=True)  
+    st.markdown("### 请填写以下信息：")  
+    st.markdown("<h4 style='font-size: 20px;'>激活剂与原料的质量比</h4>", unsafe_allow_html=True)  
     mass_ratio = st.slider('', 0.25, 8.00, 0.25)  
-    st.markdown("<h4 style='font-size: 20px;'>Temperature (°C)</h4>", unsafe_allow_html=True)  
+    st.markdown("<h4 style='font-size: 20px;'>温度（°C）</h4>", unsafe_allow_html=True)  
     temperature = st.slider('', 300, 1000, 1)  
-    st.markdown("<h4 style='font-size: 20px;'>Time (h)</h4>", unsafe_allow_html=True)  
+    st.markdown("<h4 style='font-size: 20px;'>时间（小时）</h4>", unsafe_allow_html=True)  
     time = st.slider('', 1.0, 8.0, 1.0, 0.1)  
-    st.markdown("<h4 style='font-size: 20px;'>Heating Rate (°C/min)</h4>", unsafe_allow_html=True)  
+    st.markdown("<h4 style='font-size: 20px;'>升温速率（°C/分钟）</h4>", unsafe_allowhtml=True)  
     heating_rate = st.slider('', 1, 40, 1)  
-    st.markdown("<h4 style='font-size: 20px;'>Activator</h4>", unsafe_allow_html=True)  
-    activator = st.selectbox('', ['Air', 'CO₂', 'Steam', 'KOH', 'NaOH', 'K₂CO₃', 'ZnCl₂', 'NaNH₂', 'K₂SiO₃', 'H₃PO₄', 'H₂SO₄', 'HNO₃', 'HCl', 'No Activator'])  
-    st.markdown("<h4 style='font-size: 20px;'>Confidence Level</h4>", unsafe_allow_html=True)  
+    st.markdown("<h4 style='font-size: 20px;'>激活剂</h4>", unsafe_allowhtml=True)  
+    activator = st.selectbox('', ['空气', 'CO₂', '水蒸气', 'KOH', 'NaOH', 'K₂CO₃', 'ZnCl₂', 'NaNH₂', 'K₂SiO₃', 'H₃PO₄', 'H₂SO₄', 'HNO₃', 'HCl', '无激活剂'])  
+    st.markdown("<h4 style='font-size: 20px;'>信心指数</h4>", unsafeallow_html=True)  
     certainty = st.slider('', 1, 5, 1)  
 
     def save_data():  
@@ -65,37 +65,37 @@ else:
         with pd.ExcelWriter(buffer, engine='openpyxl') as writer:  
             result_df.to_excel(writer, index=False)  
         st.download_button(  
-            label="Download Prediction Results",  
+            label="下载预测结果",  
             data=buffer.getvalue(),  
-            file_name=f"human_expert_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",  
+            file_name=f"人类专家预测_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",  
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  
         )  
 
     def submit_data():  
         st.session_state.data.append({  
-            'Name': name,  
-            'Position': title,  
-            'Institution': institution,  
-            'Question Number': st.session_state.current_index + 1,  
-            'Activator Amount': mass_ratio,  
-            'Temperature': temperature,  
-            'Time': time,  
-            'Heating Rate': heating_rate,  
-            'Activator': activator,  
-            'Confidence Level': certainty,  
-            'Actual SSA': selected_data.iloc[st.session_state.current_index, 0],  
-            'Actual Total Pore Volume': selected_data.iloc[st.session_state.current_index, 1]  
+            '姓名': name,  
+            '职位': title,  
+            '机构': institution,  
+            '问题编号': st.session_state.current_index + 1,  
+            '激活剂量': mass_ratio,  
+            '温度': temperature,  
+            '时间': time,  
+            '升温速率': heating_rate,  
+            '激活剂': activator,  
+            '信心指数': certainty,  
+            '实际比表面积': selected_data.iloc[st.session_state.current_index, 0],  
+            '实际总孔体积': selected_data.iloc[st.session_state.current_index, 1]  
         })  
-        st.success('Data submitted!')  
+        st.success('数据已提交！')  
 
         st.session_state.current_index += 1  
         if st.session_state.current_index < len(selected_data):  
             st.experimental_rerun()  
         else:  
-            st.success('All questions have been answered!')  
+            st.success('所有问题已回答完毕！')  
             save_data()  
 
-    st.button("Submit", on_click=submit_data)  
+    st.button("提交", on_click=submit_data)  
 
     # Display progress  
     st.progress(st.session_state.current_index / len(selected_data))
