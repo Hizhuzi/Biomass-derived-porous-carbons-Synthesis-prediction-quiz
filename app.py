@@ -26,13 +26,14 @@ if 'current_index' not in st.session_state:
 if 'data' not in st.session_state:  
     st.session_state.data = []  
 
-# Add name and title input fields  
+# Add name, position and institution input fields  
 st.markdown("### Personal Information")  
 name = st.text_input("Please enter your name:")  
 title = st.text_input("Please enter your position:")  
+institution = st.text_input("Please enter your institution:")  
 
-# Ensure name and title are filled before proceeding  
-if not name or not title:  
+# Ensure name, position and institution are filled before proceeding  
+if not name or not title or not institution:  
     st.warning("Please complete your personal information before proceeding.")  
 else:  
     def display_question(index):  
@@ -74,6 +75,7 @@ else:
         st.session_state.data.append({  
             'Name': name,  
             'Position': title,  
+            'Institution': institution,  
             'Question Number': st.session_state.current_index + 1,  
             'Activator Amount': mass_ratio,  
             'Temperature': temperature,  
