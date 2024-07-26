@@ -90,7 +90,9 @@ else:
 
         st.session_state.current_index += 1  
         if st.session_state.current_index < len(selected_data):  
-            st.experimental_rerun()  
+            query_params = st.experimental_get_query_params()  
+            query_params['index'] = st.session_state.current_index  
+            st.experimental_set_query_params(**query_params)  
         else:  
             st.success('所有问题已回答完毕!')  
             save_data()  
