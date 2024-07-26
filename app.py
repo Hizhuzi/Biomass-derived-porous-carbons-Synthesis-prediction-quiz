@@ -7,8 +7,8 @@ from datetime import datetime
 # GitHub raw content URL for your Excel file  
 GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/Hizhuzi/Biomass-derived-porous-carbons-Synthesis-prediction-quiz/main/your_data.xlsx"  
 
-st.markdown("## 欢迎参加生物质衍生多孔碳 (BDPCs) 合成预测问答！")  
-st.markdown("### 请查看以下页面的BDPCs，并提供您的最佳预测。")  
+st.markdown("## Welcome to the Biomass-Derived Porous Carbons (BDPCs) Synthesis Prediction Quiz!")  
+st.markdown("### Please review the BDPCs on the following page and provide your educated guess.")  
 
 @st.cache_data  
 def load_data():  
@@ -27,24 +27,24 @@ if 'data' not in st.session_state:
     st.session_state.data = []  
 
 # Add name, position and institution input fields  
-st.markdown("### 个人信息")  
-name = st.text_input("请输入您的姓名：")  
-title = st.text_input("请输入您的职位：")  
-institution = st.text_input("请输入您的机构：")  
+st.markdown("### Personal Information")  
+name = st.text_input("Please enter your name:")  
+title = st.text_input("Please enter your position:")  
+institution = st.text_input("Please enter your institution:")  
 
 # Ensure name, position and institution are filled before proceeding  
 if not name or not title or not institution:  
-    st.warning("请先填写您的个人信息。")  
+    st.warning("Please complete your personal information before proceeding.")  
 else:  
     def display_question(index):  
-        st.markdown(f"### 多孔碳结构信息 (问题 {index + 1}/50)")  
-        st.markdown(f"<h4 style='font-size: 20px;'>介孔比表面积：{selected_data.iloc[index, 0]} m²/g</h4>", unsafe_allow_html=True)  
-        st.markdown(f"<h4 style='font-size: 20px;'>微孔比表面积：{selected_data.iloc[index, 1]} cm²/g</h4>", unsafe_allow_html=True)  
+        st.markdown(f"### Porous Carbon Structure Information (Question {index + 1}/50)")  
+        st.markdown(f"<h4 style='font-size: 20px;'>Mesopore Specific Surface Area: {selected_data.iloc[index, 0]} m²/g</h4>", unsafe_allow_html=True)  
+        st.markdown(f"<h4 style='font-size: 20px;'>Micropore Specific Surface Area: {selected_data.iloc[index, 1]} cm²/g</h4>", unsafe_allow_html=True)  
 
     # Display current question  
     display_question(st.session_state.current_index)  
 
-     # Define questionnaire content  
+    # Define questionnaire content  
     st.markdown("### Please fill in the following information:")  
     st.markdown("<h4 style='font-size: 20px;'>Mass Ratio of Activator to Raw Material</h4>", unsafe_allow_html=True)  
     mass_ratio = st.slider('', 0.25, 8.00, 0.25)  
@@ -65,7 +65,7 @@ else:
         with pd.ExcelWriter(buffer, engine='openpyxl') as writer:  
             result_df.to_excel(writer, index=False)  
         st.download_button(  
-            label="下载预测结果",  
+            label="Download Prediction Results",  
             data=buffer.getvalue(),  
             file_name=f"human_expert_predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",  
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  
