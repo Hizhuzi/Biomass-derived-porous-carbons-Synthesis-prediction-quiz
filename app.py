@@ -8,7 +8,7 @@ from datetime import datetime
 GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/Hizhuzi/Biomass-derived-porous-carbons-Synthesis-prediction-quiz/main/your_data.xlsx"  
 
 st.markdown("## 欢迎参加生物质衍生多孔碳 (BDPCs) 合成预测问答！")  
-st.markdown("### 请查看以下页面的BDPCs，并提供您的最佳猜测。")  
+st.markdown("### 请查看以下页面的BDPCs，并提供您的最佳预测。")  
 
 @st.cache_data  
 def load_data():  
